@@ -15,7 +15,7 @@ sleep 3
 # Activa l'entorn virtual de Python
 source /fhome/maed03/MyVirtualEnv/bin/activate
 
-# Executa l' script d'entrenament
+# Envia l'scrip a executar a la cua
 python /fhome/maed03/train_ae_negativa.py
 
 echo "Proces finalitzat."
