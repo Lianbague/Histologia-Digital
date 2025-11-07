@@ -59,9 +59,13 @@ if __name__ == '__main__':
         
     # Carregar el model
     print(f"Carregant model entrenat a {DEVICE}...")
-    net_paramsEnc, net_paramsDec, inputmodule_paramsDec = AEConfigs(CONFIG)
-    model = AutoEncoderCNN(inputmodule_paramsDec, net_paramsEnc, net_paramsDec)
-    
+    config = AEConfigs(config_id='1', input_channels=3)
+    model = AutoEncoderCNN(
+    net_paramsEnc=config.net_paramsEnc, 
+    inputmodule_paramsDec=config.inputmodule_paramsDec, 
+    net_paramsDec=config.net_paramsDec
+    )
+
     # Carregar els pesos
     model.load_state_dict(torch.load(MODEL_SAVE_PATH, map_location=DEVICE))
     model.to(DEVICE)

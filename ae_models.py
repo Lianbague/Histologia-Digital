@@ -6,12 +6,7 @@ class AEConfigs:
         """Classe per emmagatzemar les configuracions de l'AutoEncoder CNN."""
         self.net_paramsEnc = {}
         self.net_paramsDec = {}
-        self.inputmodule_paramsEnc = {}
         self.inputmodule_paramsDec = {}
-
-        # Configurar canals d'entrada : 3 RGB
-        self.inputmodule_paramsEnc['num_input_channels'] = input_channels
-
 
         if config_id == '1':
             # ENCODER: 256 -> 128 -> 64 -> 32 -> 16 -> 8

@@ -96,8 +96,12 @@ if __name__ == "__main__":
     dataloader = DataLoader(dataset, batch_size=BATCH_SIZE, shuffle=True, num_workers=4, pin_memory=True)
     
     # Configurar el model
-    net_paramsEnc, net_paramsDec, inputmodule_paramsDec = AEConfigs(CONFIG)
-    model = AutoEncoderCNN(inputmodule_paramsDec, net_paramsEnc, net_paramsDec).to(DEVICE)
+    config = AEConfigs(config_id='1', input_channels=3)
+    model = AutoEncoderCNN(
+    net_paramsEnc=config.net_paramsEnc, 
+    inputmodule_paramsDec=config.inputmodule_paramsDec, 
+    net_paramsDec=config.net_paramsDec
+    )
     
     # Train
     optimizer = torch.optim.Adam(model.parameters(), lr=LEARNING_RATE)
