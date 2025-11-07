@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 import glob
 import sys
@@ -103,7 +104,7 @@ if __name__ == "__main__":
     net_paramsDec=config.net_paramsDec
     )
     model.to(DEVICE)
-    
+
     # Train
     optimizer = torch.optim.Adam(model.parameters(), lr=LEARNING_RATE)
     # Mean Squared Error (MSE) o L2 Loss es l'objectiu de reconstruccio
