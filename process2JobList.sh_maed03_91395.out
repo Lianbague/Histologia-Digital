@@ -1,0 +1,65 @@
+Utilitzant dispositiu: cuda:0
+Total de patches NEGATIVA trobades per entrenament: 65080
+Comencant l'entrenament (Epochs=30, Batches=1017)...
+Epoch 1/30, Loss: 1.361389
+Model guardat amb millor loss: 1.361389
+Epoch 2/30, Loss: 1.020549
+Model guardat amb millor loss: 1.020549
+Epoch 3/30, Loss: 0.968546
+Model guardat amb millor loss: 0.968546
+Epoch 4/30, Loss: 0.953796
+Model guardat amb millor loss: 0.953796
+Epoch 5/30, Loss: 0.948478
+Model guardat amb millor loss: 0.948478
+Epoch 6/30, Loss: 0.946162
+Model guardat amb millor loss: 0.946162
+Epoch 7/30, Loss: 0.944958
+Model guardat amb millor loss: 0.944958
+Epoch 8/30, Loss: 0.944339
+Model guardat amb millor loss: 0.944339
+Epoch 9/30, Loss: 0.943974
+Model guardat amb millor loss: 0.943974
+Epoch 10/30, Loss: 0.943749
+Model guardat amb millor loss: 0.943749
+Epoch 11/30, Loss: 0.943591
+Model guardat amb millor loss: 0.943591
+Epoch 12/30, Loss: 0.943489
+Model guardat amb millor loss: 0.943489
+Epoch 13/30, Loss: 0.943391
+Model guardat amb millor loss: 0.943391
+Epoch 14/30, Loss: 0.943337
+Model guardat amb millor loss: 0.943337
+Epoch 15/30, Loss: 0.943306
+Model guardat amb millor loss: 0.943306
+Epoch 16/30, Loss: 0.943279
+Model guardat amb millor loss: 0.943279
+Epoch 17/30, Loss: 0.943256
+Model guardat amb millor loss: 0.943256
+Epoch 18/30, Loss: 0.943239
+Model guardat amb millor loss: 0.943239
+Epoch 19/30, Loss: 0.943229
+Model guardat amb millor loss: 0.943229
+Epoch 20/30, Loss: 0.943210
+Model guardat amb millor loss: 0.943210
+Epoch 21/30, Loss: 0.943201
+Model guardat amb millor loss: 0.943201
+Epoch 22/30, Loss: 0.943189
+Model guardat amb millor loss: 0.943189
+Epoch 23/30, Loss: 0.943184
+Model guardat amb millor loss: 0.943184
+Epoch 24/30, Loss: 0.943174
+Model guardat amb millor loss: 0.943174
+Epoch 25/30, Loss: 0.943167
+Model guardat amb millor loss: 0.943167
+Epoch 26/30, Loss: 0.943163
+Model guardat amb millor loss: 0.943163
+Epoch 27/30, Loss: 0.943160
+Model guardat amb millor loss: 0.943160
+Epoch 28/30, Loss: 0.943157
+Model guardat amb millor loss: 0.943157
+Epoch 29/30, Loss: 0.943147
+Model guardat amb millor loss: 0.943147
+Epoch 30/30, Loss: 0.943144
+Model guardat amb millor loss: 0.943144
+Entrenament finalitzat.
+Proces finalitzat.
