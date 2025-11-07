@@ -1,5 +1,3 @@
-# evaluate_anomaly.py
-# -*- coding: utf-8 -*-
 import torch
 from torchvision import transforms
 from PIL import Image
@@ -7,11 +5,6 @@ import torch.nn as nn
 import os
 import sys
 
-# ==============================================================================
-# 0. DEFINICIONS DEL MODEL (HAN DE COINCIDIR AMB train_ae_negativa.py)
-# ==============================================================================
-
-# --- CLASSES AUXILIAR DEL MODEL ---
 class ConvBlock(nn.Module):
     def __init__(self, in_channels, out_channels, kernel_size, stride, padding):
         super(ConvBlock, self).__init__()
@@ -33,7 +26,6 @@ class TConvBlock(nn.Module):
     def forward(self, x):
         return self.relu(self.bn(self.tconv(x)))
 
-# --- CLASSE PRINCIPAL: AutoEncoderCNN ---
 class AutoEncoderCNN(nn.Module):
     def __init__(self, inputmodule_paramsDec, net_paramsEnc, net_paramsDec):
         super(AutoEncoderCNN, self).__init__()
@@ -73,7 +65,6 @@ class AutoEncoderCNN(nn.Module):
         reconstructed = self.decoder(encoded)
         return reconstructed
 
-# --- FUNCIo DE CONFIGURACIo (AEConfigs) ---
 def AEConfigs(Config):
     net_paramsEnc, net_paramsDec, inputmodule_paramsDec = {}, {}, {}
     # Utilitzem la CONFIG='1' entrenada
@@ -84,10 +75,7 @@ def AEConfigs(Config):
     return net_paramsEnc, net_paramsDec, inputmodule_paramsDec
 
 
-# ==============================================================================
-# 1. FUNCIONS D'AVALUACIo
-# ==============================================================================
-
+# FUNCIONS D'AVALUACIÓ
 def get_eval_transforms():
     """ Utilitza les mateixes transformacions i normalitzacio que l'entrenament. """
     return transforms.Compose([
@@ -104,35 +92,29 @@ def calculate_reconstruction_error(image_path, model, device):
         
     transforms = get_eval_transforms()
     
-    # 1. Carregar la imatge
+    # Carregar la imatge
     image = Image.open(image_path).convert('RGB')
     input_tensor = transforms(image).unsqueeze(0).to(device) 
 
-    # 2. Reconstruccio
+    # Reconstruccio
     model.eval()
     with torch.no_grad():
         reconstruction = model(input_tensor)
         
-    # 3. Calcular l'Error de Reconstruccio (MSE / L2 Loss)
+    # Calcular l'Error de Reconstruccio (MSE / L2 Loss)
     l_red = nn.MSELoss(reduction='none')(reconstruction, input_tensor).mean(dim=[1, 2, 3])
     
     return l_red.item()
 
-# ==============================================================================
-# 2. EXECUTOR PRINCIPAL
-# ==============================================================================
 
 if __name__ == '__main__':
     
-    # --- PARaMETRES CRiTICS ---
     MODEL_SAVE_PATH = 'autoencoder_negativa_best.pth' # Fitxer entrenat
     CONFIG = '1'
     # Per evitar l'error de cuda, utilitzem l'opcio de cpu si la GPU no esta disponible directament
     DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     
-    # --------------------------------------------------------------------------------
-    # RUTES DE PROVA (HAN DE SER MODIFICADES!)
-    # --------------------------------------------------------------------------------
+    #* Modificar Rutes
     # NEGATIVA (Sana): Dins Cropped, d'un PatID NEGATIVA (Ex: B22-03)
     PATH_PATCH_NEGATIVA = '/export/fhome/maed/HelicoDataSet/CrossValidation/Cropped/B22-106_1/10.png' 
     # POSITIVA (Anomalia): Dins Annotated, d'un PatID ALTA/BAIXA (Ex: B22-19)
@@ -143,7 +125,7 @@ if __name__ == '__main__':
         print(f"ERROR: No s'ha trobat el model {MODEL_SAVE_PATH}. Assegura't que l'entrenament ha finalitzat correctament.")
         sys.exit(1)
         
-    # 1. Carregar el model
+    # Carregar el model
     print(f"Carregant model entrenat a {DEVICE}...")
     net_paramsEnc, net_paramsDec, inputmodule_paramsDec = AEConfigs(CONFIG)
     model = AutoEncoderCNN(inputmodule_paramsDec, net_paramsEnc, net_paramsDec)
@@ -152,12 +134,12 @@ if __name__ == '__main__':
     model.load_state_dict(torch.load(MODEL_SAVE_PATH, map_location=DEVICE))
     model.to(DEVICE)
     
-    print("\n--- RESULTATS DE L'AVALUACIo ---")
+    print("\n--- RESULTATS DE L'AVALUACIO ---")
     
-    # 2. Test amb Patch NEGATIVA (Sana)
+    # Test amb Patch NEGATIVA (Sana)
     error_neg = calculate_reconstruction_error(PATH_PATCH_NEGATIVA, model, DEVICE)
     
-    # 3. Test amb Patch POSITIVA (Anomalia)
+    # Test amb Patch POSITIVA (Anomalia)
     error_pos = calculate_reconstruction_error(PATH_PATCH_POSITIVA, model, DEVICE)
     
     if error_neg is not None and error_pos is not None:
@@ -166,6 +148,6 @@ if __name__ == '__main__':
         
         if error_pos > error_neg:
             ratio = error_pos / error_neg
-            print(f"\n?? Deteccio d'Anomalia amb exit: L_red_POS es {ratio:.2f}x mes gran que L_red_NEG.")
+            print(f"\n Deteccio d'Anomalia amb exit: L_red_POS es {ratio:.2f}x mes gran que L_red_NEG.")
         else:
-            print("\n?? Advertencia: L'Error Positiu no es major que el Negatiu. El model podria no ser discriminatori.")
+            print("\n Advertencia: L'Error Positiu no es major que el Negatiu. El model podria no ser discriminatori.")

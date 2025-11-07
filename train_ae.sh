@@ -1,22 +1,21 @@
 #!/bin/bash
-#SBATCH -A maed03
-#SBATCH -p dcc 
-#SBATCH --gres=gpu:1
-#SBATCH -c 4
-#SBATCH --mem=32G
-#SBATCH -t 03:00:00
-#SBATCH -o train_ae_%j.out
-#SBATCH -e train_ae_%j.err
+#SBATCH -n 4 
+#SBATCH -N 1 
+#SBATCH -D /fhome/maed03
+#SBATCH -t 4-00:05
+#SBATCH -p tfg 
+#SBATCH --mem 12288 
+#SBATCH -o %x_%u_%j.out
+#SBATCH -e %x_%u_%j.err
+#SBATCH --gres gpu:1 
 
-echo "Iniciant proces d'entrenament de l'Autoencoder..."
+sleep 3
 
-# Carregar i activar l'entorn virtual
-source /export/fhome/maed03/MyVirtualEnv/bin/activate
 
-# Anar a la carpeta del projecte (Canvia a /export/fhome/maed03/challenge3 si el teu codi hi és)
-cd /export/fhome/maed03/
+# Activa l'entorn virtual de Python
+source /fhome/maed03/MyVirtualEnv/bin/activate
 
-# Executar l'script Python d'entrenament
-python3 train_ae_negativa.py
+# Executa l' script d'entrenament
+python /fhome/maed03/train_ae_negativa.py
 
 echo "Proces finalitzat."
