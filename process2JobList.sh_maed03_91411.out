@@ -1,0 +1,8 @@
+Carregant model entrenat a cuda:0...
+
+--- RESULTATS DE L'AVALUACIO ---
+Error Reconstruccio (NEGATIVA - Sana): 1.114923
+Error Reconstruccio (POSITIVA - Anomalia): 1.162027
+
+Deteccio d'Anomalia amb exit: L_red_POS es 1.04x mes gran que L_red_NEG.
+Proces finalitzat.
