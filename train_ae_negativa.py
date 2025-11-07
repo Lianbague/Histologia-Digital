@@ -102,6 +102,7 @@ if __name__ == "__main__":
     inputmodule_paramsDec=config.inputmodule_paramsDec, 
     net_paramsDec=config.net_paramsDec
     )
+    model.to(DEVICE)
     
     # Train
     optimizer = torch.optim.Adam(model.parameters(), lr=LEARNING_RATE)
