@@ -6,7 +6,7 @@ import torch.nn as nn
 from torchvision import transforms
 from PIL import Image
 import numpy as np
-from ae_models import AutoEncoderCNN, AEConfigs
+from AE_train_1.ae_models import AutoEncoderCNN, AEConfigs
 
 # --- Parámetros ---
 NEGATIVA_FILE = 'nueva_negativa_patients.txt'

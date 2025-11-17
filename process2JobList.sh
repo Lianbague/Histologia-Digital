@@ -15,6 +15,9 @@ sleep 3
 # Activa l'entorn virtual de Python
 source /fhome/maed03/MyVirtualEnv/bin/activate
 
+# Python busca els moduls dins de fhome/maed03 i no dins la carpeta del script que esta executant-se
+export PYTHONPATH=$PYTHONPATH:/fhome/maed03
+
 # Envia l'scrip a executar a la cua
 python /fhome/maed03/train_ae_negativa.py
 
