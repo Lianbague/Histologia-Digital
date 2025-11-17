@@ -10,7 +10,7 @@ import sys
 import matplotlib.pyplot as plt
 import numpy as np
 
-from ae_models import AutoEncoderCNN, AEConfigs
+from AE_train_1.ae_models import AutoEncoderCNN, AEConfigs
 
 # FUNCIONS D'AVALUACIÓ
 def get_eval_transforms():

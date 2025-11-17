@@ -12,8 +12,7 @@ import numpy as np
 import time
 import re
 
-# Assuming ae_models.py (with AutoEncoderCNN and AEConfigs) is accessible
-from ae_models import AutoEncoderCNN, AEConfigs 
+from AE_train_1.ae_models import AutoEncoderCNN, AEConfigs 
 
 # --- Model and Transform Functions (from your provided code) ---
 

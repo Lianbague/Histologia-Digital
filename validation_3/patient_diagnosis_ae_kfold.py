@@ -12,8 +12,7 @@ import torch.nn as nn
 from sklearn.model_selection import KFold
 from sklearn.metrics import accuracy_score, confusion_matrix, recall_score, precision_score, f1_score
 
-# Assegura't que ae_models.py existeix al mateix directori
-from ae_models import AutoEncoderCNN, AEConfigs 
+from AE_train_1.ae_models import AutoEncoderCNN, AEConfigs 
 
 # --- PARAMETRES CRITICS (TUNING 7: PRIORITAT SENSINILITAT) ---
 OPTIMAL_TAU = 0.000350 
@@ -25,8 +24,6 @@ MODEL_SAVE_PATH = 'autoencoder_negativa_best_L1Loss.pth'
 CSV_DIAGNOSIS_PATH = '/export/fhome/maed/HelicoDataSet/PatientDiagnosis.csv'
 CV_PATCHES_ROOT = '/export/fhome/maed/HelicoDataSet/CrossValidation/Cropped'
 HOLDOUT_PATCHES_ROOT = '/export/fhome/maed/HelicoDataSet/HoldOut'
-
-# ... (Funcions Auxiliars: get_eval_transforms, calculate_reconstruction_error, load_model - Es mantenen) ...
 
 def get_eval_transforms():
     """ Usa les mateixes transformacions SENSE NORMALITZACIO que l'entrenament. """

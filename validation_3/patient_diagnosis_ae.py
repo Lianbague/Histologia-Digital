@@ -11,8 +11,7 @@ import torch.nn as nn
 from sklearn.model_selection import KFold
 from sklearn.metrics import accuracy_score, confusion_matrix, recall_score
 
-# Assegura't que ae_models.py existeix al mateix directori
-from ae_models import AutoEncoderCNN, AEConfigs 
+from AE_train_1.ae_models import AutoEncoderCNN, AEConfigs 
 
 # --- PARAMETRES CRITICS ---
 OPTIMAL_TAU = 0.000350 # <-- LLINDAR OPTIM TROBAT AL PAS 4 (F1-score)

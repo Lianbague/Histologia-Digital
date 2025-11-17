@@ -10,7 +10,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
 
-from ae_models import AutoEncoderCNN, AEConfigs
+from AE_train_1.ae_models import AutoEncoderCNN, AEConfigs
 
 # Carrega de dades
 class PatchDataset(Dataset):
