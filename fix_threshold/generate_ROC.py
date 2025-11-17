@@ -212,7 +212,7 @@ def main():
     plt.grid(True)
     
     plt.savefig(ROC_CURVE_SAVE_PATH)
-    print(f"🖼️ ROC Curve saved to {ROC_CURVE_SAVE_PATH}")
+    print(f"ROC Curve saved to {ROC_CURVE_SAVE_PATH}")
     print("\n--- Next Steps ---")
     print("The 'thresholds' array contains the error values that generated each point on the curve.")
     print("You can now analyze the trade-off between TPR and FPR to select the optimal threshold.")
