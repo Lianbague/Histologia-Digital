@@ -12,7 +12,7 @@ import numpy as np
 import time
 import re
 
-from AE_train_1.ae_models import AutoEncoderCNN, AEConfigs, VariationalAutoEncoderCNN 
+from AE_train_1.ae_models import AutoEncoderCNN, AEConfigs, VariationalAutoEncoderCNN  
 
 # --- Model and Transform Functions (from your provided code) ---
 
@@ -64,16 +64,17 @@ def main():
     """ Main function to load data, process images, and generate the ROC curve. """
     
     # --- Configuration ---
-    MODEL_SAVE_PATH = 'autoencoder_negativa_best.pth'
+    #MODEL_SAVE_PATH = 'autoencoder_negativa_best.pth'
+    MODEL_SAVE_PATH = 'vae_negativa_best.pth'
     CONFIG = '1'
     DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     
     # --- File Paths ---
     # CSV file containing the list of images and their ground-truth labels
-    CSV_PATH = 'threshold_set_balanced.csv' 
+    CSV_PATH = '/export/fhome/maed03/data_preprocessing_0/threshold_set_balanced.csv' 
     # Base directory where the annotated images are located (adjust if needed)
     BASE_IMAGE_DIR = '/export/fhome/maed/HelicoDataSet/CrossValidation/Annotated' 
-    ROC_CURVE_SAVE_PATH = 'roc_curve.png' # Path to save the ROC curve plot
+    ROC_CURVE_SAVE_PATH = 'roc_curve_VAE.png' # Path to save the ROC curve plot
     
     if not os.path.exists(MODEL_SAVE_PATH):
         print(f"ERROR: Model file not found at {MODEL_SAVE_PATH}. Exiting.")
@@ -84,9 +85,20 @@ def main():
         sys.exit(1)
         
     # --- 1. Load Model ---
-    print(f"✨ Loading trained model weights from {MODEL_SAVE_PATH} to {DEVICE}...")
+    print(f"Loading trained model weights from {MODEL_SAVE_PATH} to {DEVICE}...")
     config = AEConfigs(config_id=CONFIG, input_channels=3)
-    model = AutoEncoderCNN(
+    if 'vae' in MODEL_SAVE_PATH.lower():
+        print("Detected VAE model based on filename.")
+        model = VariationalAutoEncoderCNN(
+            inputmodule_paramsEnc=config.inputmodule_paramsEnc, 
+            net_paramsEnc=config.net_paramsEnc, 
+            inputmodule_paramsDec=config.inputmodule_paramsDec, 
+            net_paramsDec=config.net_paramsDec,
+            latent_dim=128 
+        )
+    else:
+        print("Detected Standard AE model based on filename.")
+        model = AutoEncoderCNN(
         net_paramsEnc=config.net_paramsEnc, 
         inputmodule_paramsDec=config.inputmodule_paramsDec, 
         net_paramsDec=config.net_paramsDec
@@ -95,10 +107,10 @@ def main():
     model.load_state_dict(torch.load(MODEL_SAVE_PATH, map_location=DEVICE))
     model.to(DEVICE)
     model.eval()
-    print("✅ Model loaded successfully.")
+    print("Model loaded successfully.")
     
     # --- 2. Load Data and Prepare Lists ---
-    print(f"\n📚 Loading data from {CSV_PATH}...")
+    print(f"\n Loading data from {CSV_PATH}...")
     df = pd.read_csv(CSV_PATH)
 
     # Initialize lists to store results
@@ -115,7 +127,7 @@ def main():
     start_time = time.time()
     
     # --- 3. Iterate, Process, and Calculate Errors ---
-    print("\n🔍 Starting image processing and error calculation...")
+    print("\nðŸ” Starting image processing and error calculation...")
     
     for index, row in df.iterrows():
         pat_section_folder = row['Pat_Section'] # e.g., 'B22-129_0'
@@ -177,13 +189,13 @@ def main():
     
     if mean_error_sick > mean_error_healthy:
         ratio = mean_error_sick / mean_error_healthy
-        print(f"\n✅ Anomaly Detection Success: The mean error for sick patches is {ratio:.2f}x greater than for healthy patches.")
+        print(f"\nAnomaly Detection Success: The mean error for sick patches is {ratio:.2f}x greater than for healthy patches.")
     else:
-        print("\n⚠️ Warning: Mean Sick Error is not greater than Healthy Error. The model may not be effective.")
+        print("\nWarning: Mean Sick Error is not greater than Healthy Error. The model may not be effective.")
     
         
     # --- 4. Generate ROC Curve ---
-    print("\n📈 Generating ROC Curve...")
+    print("\nðŸ“ˆ Generating ROC Curve...")
     
     # The reconstruction error is the 'score' or 'probability' for the positive class (anomaly). 
     # Higher error -> Higher likelihood of anomaly (Presence=1).
