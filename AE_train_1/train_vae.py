@@ -79,10 +79,10 @@ def vae_loss_function(recon_x, x, mu, log_var, beta=1.0):
 
 if __name__ == "__main__":
     
-    # Configuració de paths (igual que abans)
-    NEGATIVA_FILE = 'negativa_patients.txt' 
+    # Configuració de paths
+    NEGATIVA_FILE = '/export/fhome/maed03/data_preprocessing_0/negativa_patients.txt' 
     PATCHES_ROOT = '/export/fhome/maed/HelicoDataSet/CrossValidation/Cropped/'
-    MODEL_SAVE_PATH = 'vae_negativa_best.pth' 
+    MODEL_SAVE_PATH = '/export/fhome/maed03/vae_negativa_best.pth' 
     CONFIG = '1' 
     
     # Hiperparametres

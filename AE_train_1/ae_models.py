@@ -7,6 +7,7 @@ class AEConfigs:
         """Classe per emmagatzemar les configuracions de l'AutoEncoder CNN."""
         self.net_paramsEnc = {}
         self.net_paramsDec = {}
+        self.inputmodule_paramsEnc = {}
         self.inputmodule_paramsDec = {}
 
         if config_id == '1':
@@ -29,7 +30,7 @@ class AEConfigs:
                 [3, 3, 2, 1, 1] 
             ]
             
-            
+            self.inputmodule_paramsEnc['num_input_channels'] = input_channels
             self.inputmodule_paramsDec['num_input_channels'] = self.net_paramsEnc['block_configs'][-1][0] # 512
             
         else:
@@ -74,6 +75,7 @@ class AutoEncoderCNN(nn.Module):
         reconstructed = self.decoder(encoded)
         return reconstructed
 
+
 class ConvBlock(nn.Module):
     def __init__(self, in_channels, out_channels, kernel_size, stride, padding):
         super(ConvBlock, self).__init__()
@@ -94,7 +96,7 @@ class TConvBlock(nn.Module):
 
     def forward(self, x):
         return self.relu(self.bn(self.tconv(x)))
-    
+
 # VAE --> NOU MODEL        
 class VariationalAutoEncoderCNN(nn.Module):
     def __init__(self, inputmodule_paramsEnc, net_paramsEnc, inputmodule_paramsDec, net_paramsDec, latent_dim=128):
