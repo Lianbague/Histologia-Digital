@@ -12,7 +12,7 @@ import numpy as np
 import time
 import re
 
-from AE_train_1.ae_models import AutoEncoderCNN, AEConfigs 
+from AE_train_1.ae_models import AutoEncoderCNN, AEConfigs, VariationalAutoEncoderCNN 
 
 # --- Model and Transform Functions (from your provided code) ---
 
@@ -46,7 +46,11 @@ def calculate_reconstruction_error(image_path, model, device):
     # Reconstruction
     model.eval()
     with torch.no_grad():
-        reconstruction = model(input_tensor)
+        #* Comprovar el tipus de model per fer la reconstrucció
+        if isinstance(model, VariationalAutoEncoderCNN):
+            reconstruction, _, _ = model(input_tensor) # VAE retorna 3 valors
+        else:
+            reconstruction = model(input_tensor)
         
     # Calculate Reconstruction Error (MSE / L2 Loss) - Mean over all dimensions
     # We use reduction='none' and then mean() to ensure we get a single scalar error per image.
