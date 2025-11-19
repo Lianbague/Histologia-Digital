@@ -25,7 +25,7 @@ class PatientFeatureDataset(Dataset):
         pat_id = self.patient_ids[idx]
         # Carregar el tensor calculat previament de caracteristiques
         features_path = os.path.join(self.features_dir, f"{pat_id}.pt")
-        features = torch.load(features_path)
+        features = torch.load(features_path, weights_only=True)
         
         # Obtenir etiqueta (Bacteria = 1, Negativa = 0)
         label_str = self.df[self.df['CODI'] == pat_id]['DENSITAT'].values[0]
