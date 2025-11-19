@@ -36,7 +36,6 @@ def extract_features():
 
     # Inicialitzem el model sencer pero només utilitzarem l'encoder per extreure característiques
     full_model = AutoEncoderCNN(
-        inputmodule_paramsEnc=config.inputmodule_paramsEnc,
         net_paramsEnc=config.net_paramsEnc,
         inputmodule_paramsDec=config.inputmodule_paramsDec, 
         net_paramsDec=config.net_paramsDec 

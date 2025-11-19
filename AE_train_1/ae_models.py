@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 
 class AEConfigs:
     def __init__(self, config_id='1', input_channels=3):
@@ -96,6 +97,61 @@ class TConvBlock(nn.Module):
 
     def forward(self, x):
         return self.relu(self.bn(self.tconv(x)))
+
+# Model SISTEMA 2 -- Attention-based MIL
+class AttentionMIL(nn.Module):
+    def __init__(self, input_dim, hidden_dim=128):
+        super(AttentionMIL, self).__init__()
+        
+        # 1. Feature Extractor (Local) Reduir dimensionalitat d'entrada
+        self.feature_reducer = nn.Sequential(
+            nn.Linear(input_dim, 512),
+            nn.ReLU(),
+            nn.Dropout(0.25)
+        )
+
+        # 2. Attention Mechanism 
+        # V = Tanh, U = Sigmoid.  w = V * U
+        self.attention_V = nn.Sequential(
+            nn.Linear(512, hidden_dim),
+            nn.Tanh()
+        )
+        self.attention_U = nn.Sequential(
+            nn.Linear(512, hidden_dim),
+            nn.Sigmoid()
+        )
+        self.attention_weights = nn.Linear(hidden_dim, 1) # De hidden a 1 pes
+
+        # 3. Classifier (Global)
+        self.classifier = nn.Sequential(
+            nn.Linear(512, 1), # Entrada es el vector promig ponderat
+            nn.Sigmoid()       # Sortida probabilitat (0-1)
+        )
+
+    def forward(self, x):
+        # x shape: [1, Num_Patches, Input_Dim] (Batch size sempre es 1 en MIL simple)
+        x = x.squeeze(0) # [Num_Patches, Input_Dim]
+
+        # Reduccio de caracteristiques
+        H = self.feature_reducer(x) # [Num_Patches, 512]
+
+        # Calcul Attention
+        A_V = self.attention_V(H) 
+        A_U = self.attention_U(H) 
+        
+        A_raw = self.attention_weights(A_V * A_U) # [Num_Patches, 1]
+        
+        # Softmax perque els pesos sumin 1
+        A = torch.softmax(A_raw, dim=0) # [Num_Patches, 1]
+
+        # Multipliquem cada vector de caracteristiques per el seu pes d'atencio
+        M = torch.mm(A.transpose(0, 1), H) # [1, 512]
+
+        # Clasificacio final del pacient
+        Y_prob = self.classifier(M)
+        
+        # Retornem Probabilitat, Pesos de atencio i Embedding Global
+        return Y_prob, A, M
 
 # VAE --> NOU MODEL        
 class VariationalAutoEncoderCNN(nn.Module):
