@@ -1,0 +1,7 @@
+Gràfica guardada com 'comparativa_boxplots.png'
+
+--- Anàlisi Estadístic (T-Test Relacionat) ---
+Si p-value < 0.05, la diferència és significativa.
+AE (P99) vs VAE (P99): P-value = 0.0482 -> Significatiu? SÍ
+AE (P99) vs AE (MSE): P-value = 0.0005 -> Significatiu? SÍ
+Proces finalitzat.
