@@ -116,7 +116,7 @@ def load_model(filename, input_dim):
         return None
 
 # =========================================================================
-#  FUNCIÓN MODIFICADA PARA ROC PROMEDIO + TABLA
+#  FUNCIÓN PARA ROC PROMEDIO + TABLA
 # =========================================================================
 def generate_individual_roc_with_thresholds(true_labels, fold_probs_list, thresholds_data, model_type, results_summary):
     print("\nGenerando ROC Curves Individuales con Promedio y Tabla...")
