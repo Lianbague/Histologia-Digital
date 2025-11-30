@@ -1,0 +1,11 @@
+Fold,Model_File,Threshold_Used,AUC,Accuracy,Sensitivity,Specificity
+1,S2_best_model_AE_fold1.pth,0.5,0.5341854934601665,0.5,1.0,0.0
+2,S2_best_model_AE_fold2.pth,0.5,0.39313317479191445,0.5,1.0,0.0
+3,S2_best_model_AE_fold3.pth,0.5,0.525564803804994,0.5,1.0,0.0
+4,S2_best_model_AE_fold4.pth,0.5,0.5228894173602854,0.5,1.0,0.0
+5,S2_best_model_AE_fold5.pth,0.5,0.4348989298454221,0.5,1.0,0.0
+6,S2_best_model_AE_fold6.pth,0.5,0.4519916765755053,0.5,1.0,0.0
+7,S2_best_model_AE_fold7.pth,0.5,0.5713436385255648,0.5,1.0,0.0
+8,S2_best_model_AE_fold8.pth,0.5,0.4842449464922712,0.5,1.0,0.0
+9,S2_best_model_AE_fold9.pth,0.5,0.5630202140309155,0.5,1.0,0.0
+10,S2_best_model_AE_fold10.pth,0.5,0.4732461355529133,0.5,1.0,0.0
