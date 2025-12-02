@@ -76,8 +76,10 @@ The workflow addresses the high resolution of WSIs by processing them as collect
     * **AutoEncoder Features:** Poor performance (AUC ~0.50), confirming reconstruction features are less discriminative for this task.
 
 <p align="center">
-  <img src="path/to/system2_cv_roc.png" alt="System 2 CV Results" width="45%">
+   <img width="45%" alt="System 2 CV Results ResNet" src="https://github.com/user-attachments/assets/3630e9a8-4b2c-4b04-af0d-870c20dbb4c0" />
+
   <img src="path/to/system2_holdout_roc.png" alt="System 2 Holdout Results" width="45%">
+   
 </p>
 
 ---
