@@ -77,9 +77,7 @@ The workflow addresses the high resolution of WSIs by processing them as collect
 
 <p align="center">
    <img width="45%" alt="System 2 CV Results ResNet" src="https://github.com/user-attachments/assets/3630e9a8-4b2c-4b04-af0d-870c20dbb4c0" />
-
-  <img src="path/to/system2_holdout_roc.png" alt="System 2 Holdout Results" width="45%">
-   
+<img width="45%" alt="System 2 Holdout Results ResNet" src="https://github.com/user-attachments/assets/1c11ebe8-e2b0-4510-bf37-f8a7bfca378a" />   
 </p>
 
 ---
