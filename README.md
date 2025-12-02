@@ -1,8 +1,11 @@
 # Digital Histology: Anomaly Detection and Sample Classification for H. pylori Diagnosis
 
 **Authors:** Adriana, Lian, Martina, Paula
+
 **Institution:** UAB (Universitat Autònoma de Barcelona)
+
 **Project:** Artificial Intelligence in Health
+
 **Goal:** Automate the diagnosis of Helicobacter pylori in gastric biopsies using deep learning techniques to overcome the limitations of manual visual inspection (large images, low bacteria density, subjectivity).
 
 ## 1. Project Overview
